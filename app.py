@@ -29,7 +29,7 @@ def recommend_movie(movie):
 def fetch_movie_poster(movie_name):
     movie_name = movie_name.replace(" ", "%20")
     movie_name = movie_name.replace("'", "%27")
-    url = 'https://api.themoviedb.org/3/search/movie?api_key=1c907393fa6d46b0a682ef8c5e47bbed&query={}'.format(
+    url = 'https://api.themoviedb.org/3/search/movie?api_key=(Your_Api_key)'.format(
         movie_name)
     response = requests.get(url)
     if response.status_code == 200:
