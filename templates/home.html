@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies Recommendation System</title>
+</head>
+<body>
+    <h1>Welcome to the Movies Recommendation System!</h1>
+    <p>Click the button below to get movie recommendations.</p>
+    <a href="/recommendations"><button>Get Recommendations</button></a>
+</body>
+</html>
+
+
+
+
+<!-- app/templates/recommendations.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommendations</title>
+    <style>
+        /* ... (CSS styles as before) ... */
+        select {
+            /* ... (styles as before) ... */
+        }
+        form {
+            text-align: center;
+            margin: 20px auto;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Recommendations</h1>
+
+    <!-- Add the dropdown list for movies -->
+    <form id="movie-form">
+        <select id="movie-selector">
+            <option value="">All Movies</option>
+            {% for movie in movies %}
+            <option value="{{ movie }}">{{ movie }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    <ul>
+        {% for movie in movies %}
+        <li class="movie-item">{{ movie }}</li>
+        {% endfor %}
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // JavaScript code to handle the form submission
+        $('#movie-form').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const selectedMovie = $('#movie-selector').val();
+
+            // Make the POST request using jQuery AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/recommendations', // Replace this with the appropriate endpoint
+                data: { movie: selectedMovie },
+                success: function (response) {
+                    console.log('Response from server:', response);
+                    // Handle the response from the server as needed
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
